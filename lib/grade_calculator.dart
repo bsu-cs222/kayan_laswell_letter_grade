@@ -1,6 +1,6 @@
 class GradeCalculator {
-  letterGrade(int percent) {
-    switch (percent) {
+  letterGrade(int score) {
+    switch (score) {
       case >= 90:
         return "A";
       case >= 80 && <= 89:
