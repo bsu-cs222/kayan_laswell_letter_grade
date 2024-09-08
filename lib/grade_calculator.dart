@@ -1,5 +1,5 @@
 class GradeCalculator {
-  letterGrade(int score) {
+  letterGrade(score) {
     switch (score) {
       case >= 90:
         return "A";
