@@ -43,7 +43,7 @@ class _GradeCalculatorWidgetState extends State<GradeCalculatorWidget> {
         ),
         ElevatedButton(
           onPressed: _onButtonPressed,
-          child: const Text('Press me'),
+          child: const Text('Grade me'),
         ),
         Text(_message),
       ],
