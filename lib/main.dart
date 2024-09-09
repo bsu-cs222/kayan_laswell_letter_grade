@@ -1,73 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:letter_grader/grade_calculator.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Letter Grader',
-      home: MyCustomForm(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const Scaffold(body: GradeCalculatorWidget()),
     );
   }
 }
 
-// Define a custom Form widget.
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
+class GradeCalculatorWidget extends StatefulWidget {
+  const GradeCalculatorWidget({super.key});
 
   @override
-  State<MyCustomForm> createState() => _MyCustomFormState();
+  State<GradeCalculatorWidget> createState() => _GradeCalculatorWidgetState();
 }
 
-// Define a corresponding State class.
-// This class holds the data related to the Form.
-class _MyCustomFormState extends State<MyCustomForm> {
-  GradeCalculator gradeCalculator = GradeCalculator();
-  // Create a text controller and use it to retrieve the current value
-  // of the TextField.
-  final myController = TextEditingController();
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    myController.dispose();
-    super.dispose();
-  }
+class _GradeCalculatorWidgetState extends State<GradeCalculatorWidget> {
+  final TextEditingController _controller = TextEditingController();
+  String _message = '';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Letter Grader'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: TextField(
-          controller: myController,
+    return Column(
+      children: [
+        const Text('Enter your score'),
+        TextField(
+          controller: _controller,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        // When the user presses the button, show an alert dialog containing
-        // the text that the user has entered into the text field.
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                // Retrieve the text the that user has entered by using the
-                // TextEditingController.
-                content: gradeCalculator.letterGrade(myController.text),
-              );
-            },
-          );
-        },
-        tooltip: 'Show me my grade',
-        child: const Icon(Icons.text_fields),
-      ),
+        ElevatedButton(
+          onPressed: _onButtonPressed,
+          child: const Text('Press me'),
+        ),
+        Text(_message),
+      ],
     );
+  }
+
+  void _onButtonPressed() {
+    setState(() {
+      GradeCalculator calculator = GradeCalculator();
+      int score = int.parse(_controller.text);
+      String grade = calculator.letterGrade(score);
+      _message = "Grade: $grade";
+    });
   }
 }
