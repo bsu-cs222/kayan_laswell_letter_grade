@@ -54,7 +54,7 @@ class _GradeCalculatorWidgetState extends State<GradeCalculatorWidget> {
     setState(() {
       GradeCalculator calculator = GradeCalculator();
       int score = int.parse(_controller.text);
-      String grade = calculator.letterGrade(score);
+      String grade = calculator.letterGrader(score);
       _message = "Grade: $grade";
     });
   }

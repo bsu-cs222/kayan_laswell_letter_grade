@@ -9,7 +9,7 @@ void main() {
 
   for (int i = 0; i < score.length; i++) {
     test("expect ${score[i]} to be ${grade[i]}", () {
-      String result = calculator.letterGrade(score[i]);
+      String result = calculator.letterGrader(score[i]);
       expect(result, grade[i]);
     });
   }
